@@ -16,13 +16,7 @@ edcg:pred_info(r,1,[castor,pollux]).
 edcg:pred_info(flist,1,[fwd]).
 edcg:pred_info(rlist,1,[rev]).
 edcg:pred_info(sum_first_n,1,[add]).
-
-% The program
-:- dynamic q/4, r/4.  % eliminate "not defined" warnings
-p(X) -->>
-    Y is X+1,
-    q(Y),
-    r(Y).
+edcg:pred_info(sum,0,[add,dcg]).
 
 
 % flist(N,[],List) creates the list [1,2,...,N]
@@ -56,6 +50,16 @@ sum_first_n(N) -->>
     N1 is N-1,
     sum_first_n(N1).
 
+sum(Xs,Sum) :-
+    sum(0,Sum,Xs,[]).
+sum -->>
+    [X],
+    !,
+    [X]:add,
+    sum.
+sum -->>
+    [].
+
 
 :- use_module(library(tap)).
 
@@ -68,10 +72,14 @@ sum_first_n(N) -->>
     rlist(7,L,[]),
     L == [7,6,5,4,3,2,1].
 
-'trivial sum' :-
+'sum_first_n: trivial' :-
     sum_first_n(0,0,Sum),
     Sum == 0.
 
-'real sum' :-
+'sum_first_n: four' :-
     sum_first_n(4,0,Sum),
     Sum is 4+3+2+1.
+
+'sum [2,2,3]' :-
+    sum([2,2,3],Sum),
+    Sum is 2+2+3.
