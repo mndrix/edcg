@@ -1,13 +1,22 @@
 :- module( edcg, [
-    op(1200, xfx, '-->>')   % Similar to '-->'
+    op(1200, xfx, '-->>'),   % Similar to '-->'
+    edcg_import_sentinel/0
 ]).
 
-% The predicate term_expansion/2 implements the extended translation.
-% If loaded into Prolog along with the appropriate acc_info, pass_info,
-% and pred_info facts it will be used automatically when consulting programs.
+
+% True if the module being read has opted-in to EDCG macro expansion.
+wants_edcg_expansion :-
+    prolog_load_context(module, Module),
+    Module \== edcg,  % don't expand macros in our own library
+    predicate_property(Module:edcg_import_sentinel, imported_from(edcg)).
+
+% dummy predicate exported to detect which modules want EDCG expansion
+edcg_import_sentinel.
+
 
 % Perform EDCG macro expansion
 user:term_expansion((H-->>B), (TH:-TB)) :-
+    wants_edcg_expansion,
     functor(H, Na, Ar),
     '_has_hidden'(H, HList),
     '_new_goal'(H, HList, HArity, TH),
