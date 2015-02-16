@@ -1,5 +1,4 @@
 :- op(1200, xfx, ['-->>']).   % Same as ':-'.
-:- op( 850, xfx, [':']).      % Slightly tighter than ',' and '\+'.
 
 % The predicate term_expansion/2 implements the extended translation.
 % If loaded into Prolog along with the appropriate acc_info, pass_info,
