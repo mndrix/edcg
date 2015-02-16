@@ -1,7 +1,6 @@
-# v0.0.1 (YYYY-MM-DD)
+# v0.9.0 (2015-02-16)
 
-  * Describe first change
-  * Describe another change
+  * First release as an SWI-Prolog pack
 
 # Origin
 
