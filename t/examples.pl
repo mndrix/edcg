@@ -4,7 +4,7 @@
 edcg:acc_info(castor,_,_,_,true).
 edcg:acc_info(fwd, T, In, Out, Out=[T|In]). % forward accumulator
 edcg:acc_info(rev, T, Out, In, Out=[T|In]). % reverse accumulator
-edcg:acc_info(add, I, In, Out, plus(I,In,Out)).  % adder
+edcg:acc_info(adder, I, In, Out, plus(I,In,Out)).  % adder
 
 % Declare passed arguments
 edcg:pass_info(pollux).
@@ -15,8 +15,8 @@ edcg:pred_info(q,1,[castor,pollux]).
 edcg:pred_info(r,1,[castor,pollux]).
 edcg:pred_info(flist,1,[fwd]).
 edcg:pred_info(rlist,1,[rev]).
-edcg:pred_info(sum_first_n,1,[add]).
-edcg:pred_info(sum,0,[add,dcg]).
+edcg:pred_info(sum_first_n,1,[adder]).
+edcg:pred_info(sum,0,[adder,dcg]).
 
 
 % flist(N,[],List) creates the list [1,2,...,N]
@@ -46,7 +46,7 @@ sum_first_n(0) -->>
     [].
 sum_first_n(N) -->>
     N>0,
-    [N]:add,
+    [N]:adder,
     N1 is N-1,
     sum_first_n(N1).
 
@@ -55,7 +55,7 @@ sum(Xs,Sum) :-
 sum -->>
     [X],
     !,
-    [X]:add,
+    [X]:adder,
     sum.
 sum -->>
     [].
