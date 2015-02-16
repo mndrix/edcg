@@ -10,6 +10,14 @@
 :- ['generic-util.pl'].
 
 
+% these predicates define extra arguments
+:- multifile
+    acc_info/5,
+    acc_info/7,
+    pass_info/1,
+    pass_info/2.
+
+
 % True if the module being read has opted-in to EDCG macro expansion.
 wants_edcg_expansion :-
     prolog_load_context(module, Module),
