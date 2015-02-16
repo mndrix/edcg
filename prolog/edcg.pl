@@ -305,9 +305,6 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
 '_list'(L) :- nonvar(L), L=[_|_], !.
 '_list'(L) :- L==[], !.
 
-'_append'([], L, L).
-'_append'([X|L1], L2, [X|L3]) :- '_append'(L1, L2, L3).
-
 '_make_list'(A, [A]) :- \+'_list'(A), !.
 '_make_list'(L,   L) :-   '_list'(L), !.
 
