@@ -1,10 +1,13 @@
-:- op(1200, xfx, ['-->>']).   % Same as ':-'.
+:- module( edcg, [
+    op(1200, xfx, '-->>')   % Similar to '-->'
+]).
 
 % The predicate term_expansion/2 implements the extended translation.
 % If loaded into Prolog along with the appropriate acc_info, pass_info,
 % and pred_info facts it will be used automatically when consulting programs.
 
-term_expansion((H-->>B), (TH:-TB)) :-
+% Perform EDCG macro expansion
+user:term_expansion((H-->>B), (TH:-TB)) :-
     functor(H, Na, Ar),
     '_has_hidden'(H, HList),
     '_new_goal'(H, HList, HArity, TH),
