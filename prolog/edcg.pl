@@ -181,7 +181,7 @@ term_expansion((H-->>B), (TH:-TB)) :-
 
 % Specialized utilities:
 
-% Given a goal Goal and a list of hidden parameters GList 
+% Given a goal Goal and a list of hidden parameters GList
 % create a new goal TGoal with the correct number of arguments.
 % Also return the arity of the original goal.
 '_new_goal'(Goal, GList, GArity, TGoal) :-
@@ -206,10 +206,10 @@ term_expansion((H-->>B), (TH:-TB)) :-
 
 % Give a list of G's hidden parameters:
 '_has_hidden'(G, GList) :-
-	functor(G, GName, GArity), 
+	functor(G, GName, GArity),
 	pred_info(GName, GArity, GList).
 '_has_hidden'(G, []) :-
-	functor(G, GName, GArity), 
+	functor(G, GName, GArity),
 	\+pred_info(GName, GArity, _).
 
 % Succeeds if A is an accumulator:
