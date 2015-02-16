@@ -24,8 +24,8 @@
 '_create_acc_pass'([A|_AList], _Index, _TGoal, _Acc, _Pass) :-
     \+'_is_acc'(A),
     \+'_is_pass'(A),
-    write('*** Error: '),write(A),
-    write(' is not a hidden parameter.'),nl.
+    print_message(error,not_a_hidden_param(A)).
+
 
 % Use the Acc and Pass data structures to create the arguments of a body goal:
 % Add the hidden parameters named in GList to the goal.
@@ -61,8 +61,7 @@
     '_use_acc_pass'(GList, Index1, TGoal, Acc, NewAcc, Pass).
 % 3. Defaulty case when A does not exist:
 '_use_acc_pass'([A|_GList], _Index, _TGoal, Acc, Acc, _Pass) :-
-    write('*** Error: the hidden parameter '),write(A),
-    write(' does not exist.'),nl.
+    print_message(error,not_a_hidden_param(A)).
 
 % Finish the Acc data structure:
 % Link its Left and Right accumulation variables together in pairs:

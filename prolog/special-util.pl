@@ -1,6 +1,7 @@
 % Specialized utilities:
 
 :- ['generic-util.pl'].
+:- ['messages.pl'].
 
 % Given a goal Goal and a list of hidden parameters GList
 % create a new goal TGoal with the correct number of arguments.
@@ -76,9 +77,7 @@
     '_joiner'(List, A, NaAr, LJoiner, MidAcc, NewAcc).
 % Defaulty case:
 '_joiner'([_Term|List], A, NaAr, Joiner, Acc, NewAcc) :-
-    write('*** Warning: in '),write(NaAr),
-    write(' the accumulator '),write(A),
-    write(' does not exist.'),nl,
+    print_message(warning, missing_accumulator(NaAr,A)),
     '_joiner'(List, A, NaAr, Joiner, Acc, NewAcc).
 
 % Replace hidden parameters with ones containing initial values:

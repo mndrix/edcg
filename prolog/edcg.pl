@@ -97,8 +97,7 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
     var(X), var(Y), atomic(A),
     member(acc(A,X,Y), Acc), !.
 '_expand_goal'((X/Y), true, NaAr, _, Acc, Acc, _) :-
-    write('*** Warning: in '),write(NaAr),write(' the term '),write(X/Y),
-    write(' uses a non-existent hidden parameter.'),nl.
+    print_message(warning,missing_hidden_parameter(NaAr,X/Y)).
 % Defaulty cases:
 '_expand_goal'(G, TG, _HList, _, Acc, NewAcc, Pass) :-
     '_has_hidden'(G, GList), !,
