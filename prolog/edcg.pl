@@ -1,13 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Copyright (C) 1992 Peter Van Roy.
-% All rights reserved.  This program may be freely used and modified for
-% non-commercial purposes provided this copyright notice is kept unchanged.
-% Written by Peter Van Roy.  Enhanced by Tom Getzinger.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Multiple hidden parameters: an extension to Prolog's DCG notation.
-% Version: July 16, 1989
-
 :- op(1200, xfx, ['-->>']).   % Same as ':-'.
 :- op( 850, xfx, [':']).      % Slightly tighter than ',' and '\+'.
 
