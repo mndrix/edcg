@@ -288,16 +288,6 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
     L1 is L+1,
     '_match'(L1, H, P, Q).
 
-% Flatten a conjunction and terminate it with 'true':
-'_flat_conj'(Conj, FConj) :- '_flat_conj'(Conj, FConj, true).
-
-'_flat_conj'(true, X, X).
-'_flat_conj'((A,B), X1, X3) :-
-    '_flat_conj'(A, X1, X2),
-    '_flat_conj'(B, X2, X3).
-'_flat_conj'(G, (G,X), X) :-
-    \+G=true,
-    \+G=(_,_).
 
 '_member'(X, [X|_]).
 '_member'(X, [_|L]) :- '_member'(X, L).
