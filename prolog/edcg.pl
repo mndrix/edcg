@@ -3,6 +3,8 @@
     edcg_import_sentinel/0
 ]).
 
+:- use_module(library(lists), [member/2]).
+
 
 % True if the module being read has opted-in to EDCG macro expansion.
 wants_edcg_expansion :-
@@ -72,16 +74,16 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
     '_joiner'(L, dcg, NaAr, Joiner, Acc, NewAcc).
 '_expand_goal'((X/A), true, _, _, Acc, Acc, _) :-
     atomic(A),
-    '_member'(acc(A,X,_), Acc), !.
+    member(acc(A,X,_), Acc), !.
 '_expand_goal'((X/A), true, _, _, Acc, Acc, Pass) :-
     atomic(A),
-    '_member'(pass(A,X), Pass), !.
+    member(pass(A,X), Pass), !.
 '_expand_goal'((A/X), true, _, _, Acc, Acc, _) :-
     atomic(A),
-    '_member'(acc(A,_,X), Acc), !.
+    member(acc(A,_,X), Acc), !.
 '_expand_goal'((X/A/Y), true, _, _, Acc, Acc, _) :-
     var(X), var(Y), atomic(A),
-    '_member'(acc(A,X,Y), Acc), !.
+    member(acc(A,X,Y), Acc), !.
 '_expand_goal'((X/Y), true, NaAr, _, Acc, Acc, _) :-
     write('*** Warning: in '),write(NaAr),write(' the term '),write(X/Y),
     write(' uses a non-existent hidden parameter.'),nl.
@@ -141,7 +143,7 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
 % 2a. The passed argument A is used in the head:
 '_use_acc_pass'([A|GList], Index, TGoal, Acc, NewAcc, Pass) :-
     '_is_pass'(A),
-    '_member'(pass(A,Arg), Pass), !,
+    member(pass(A,Arg), Pass), !,
     Index1 is Index+1,
     arg(Index1, TGoal, Arg),
     '_use_acc_pass'(GList, Index1, TGoal, Acc, NewAcc, Pass).
@@ -164,7 +166,7 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
 % Replace elements in the Acc data structure:
 % Succeeds iff replacement is successful.
 '_replace_acc'(A, L1, R1, L2, R2, Acc, NewAcc) :-
-    '_member'(acc(A,L1,R1), Acc), !,
+    member(acc(A,L1,R1), Acc), !,
     '_replace'(acc(A,_,_), acc(A,L2,R2), Acc, NewAcc).
 
 % Combine two accumulator lists ('or'ing their values)
@@ -269,10 +271,10 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
 
 '_replace_default'(A, NewA, AList) :-  % New initial values for accumulator.
     functor(NewA, A, 2),
-    '_member'(NewA, AList), !.
+    member(NewA, AList), !.
 '_replace_default'(A, NewA, AList) :-  % New initial values for passed argument.
     functor(NewA, A, 1),
-    '_member'(NewA, AList), !.
+    member(NewA, AList), !.
 '_replace_default'(A, NewA, _) :-      % Use default initial values.
     A=NewA.
 
@@ -288,9 +290,6 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
     L1 is L+1,
     '_match'(L1, H, P, Q).
 
-
-'_member'(X, [X|_]).
-'_member'(X, [_|L]) :- '_member'(X, L).
 
 '_list'(L) :- nonvar(L), L=[_|_], !.
 '_list'(L) :- L==[], !.
