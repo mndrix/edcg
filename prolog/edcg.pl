@@ -56,7 +56,6 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
     '_expand_goal'(G2, TG2, NaAr, HList, MidAcc, NewAcc, Pass).
 '_expand_goal'((\+G), (\+TG), NaAr, HList, Acc, Acc, Pass) :-
     '_expand_goal'(G, TG, NaAr, HList, Acc, _TempAcc, Pass).
-
 '_expand_goal'({G}, G, _, _, Acc, Acc, _) :- !.
 '_expand_goal'(insert(X,Y), LeftA=X, _, _, Acc, NewAcc, _) :-
     '_replace_acc'(dcg, LeftA, RightA, Y, RightA, Acc, NewAcc), !.
