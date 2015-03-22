@@ -33,6 +33,7 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
     wants_edcg_expansion,
     functor(H, Na, Ar),
     '_has_hidden'(H, HList),
+    debug(edcg,'Expanding ~w',[H]),
     '_new_goal'(H, HList, HArity, TH),
     '_create_acc_pass'(HList, HArity, TH, Acc, Pass),
     '_expand_goal'(B, TB, Na/Ar, HList, Acc, NewAcc, Pass),
@@ -60,7 +61,9 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
 '_expand_goal'(insert(X,Y), LeftA=X, _, _, Acc, NewAcc, _) :-
     '_replace_acc'(dcg, LeftA, RightA, Y, RightA, Acc, NewAcc), !.
 '_expand_goal'(insert(X,Y):A, LeftA=X, _, _, Acc, NewAcc, _) :-
-    '_replace_acc'(A, LeftA, RightA, Y, RightA, Acc, NewAcc), !.
+    '_replace_acc'(A, LeftA, RightA, Y, RightA, Acc, NewAcc),
+    debug(edcg,'Expanding accumulator goal: ~w',[insert(X,Y):A]),
+    !.
 % Force hidden arguments in L to be appended to G:
 '_expand_goal'((G:A), TG, _, _HList, Acc, NewAcc, Pass) :-
     \+'_list'(G),
@@ -85,10 +88,14 @@ user:term_expansion((H-->>B), (TH:-TB)) :-
     '_joiner'(L, dcg, NaAr, Joiner, Acc, NewAcc).
 '_expand_goal'((X/A), true, _, _, Acc, Acc, _) :-
     atomic(A),
-    member(acc(A,X,_), Acc), !.
+    member(acc(A,X,_), Acc),
+    debug(edcg,'Expanding accumulator goal: ~w',[X/A]),
+    !.
 '_expand_goal'((X/A), true, _, _, Acc, Acc, Pass) :-
     atomic(A),
-    member(pass(A,X), Pass), !.
+    member(pass(A,X), Pass),
+    debug(edcg,'Expanding passed argument goal: ~w',[X/A]),
+    !.
 '_expand_goal'((A/X), true, _, _, Acc, Acc, _) :-
     atomic(A),
     member(acc(A,_,X), Acc), !.
