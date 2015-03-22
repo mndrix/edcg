@@ -49,7 +49,7 @@ Extended DCG syntax is very similar to DCG notation.  An EDCG is created with cl
   * `Acc/X` - Unify `X` with the right term for the accumulator `Acc`
   * `X/Acc/Y` - Unify `X` with the left and `Y` with the right term for the accumulator `Acc`
   * `insert(X,Y):Acc` - Insert the arguments `X` and `Y` into the chain implementing the accumulator `Acc`. This is useful when the value of the accumulator changes radically because `X` and `Y` may be the arguments of an arbitrary relation
-  * `insert(X,Y):Acc` - Insert the arguments `X` and `Y` into the chain implementing the accumulator `dcg`. This inserts the difference list X-Y into the accumulated list
+  * `insert(X,Y)` - Insert the arguments `X` and `Y` into the chain implementing the accumulator `dcg`. This inserts the difference list X-Y into the accumulated list
 
 # Declarations
 
